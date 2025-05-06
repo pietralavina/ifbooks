@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 
-let exibeCarrinho = ref(false);
+const exibeCarrinho = ref(false);
 
 const produtos = [
   {
@@ -62,22 +62,14 @@ const produtos = [
   }
 ];
 
-const carrinho = [];
+function comprar(produto) {
+  alert("Fazer o adicionar ao carrinho: " + produto.titulo )
+}
 
 </script>
 
 <template>
   <header>
-    <p v-if="!exibeCarrinho">Sem itens</p>
-    <div v-else>
-      <p>Exibe itens</p>
-      <!-- <ul>
-        <li v-for="(produto, index) in produtos" :key="align-item.id">
-          {{ produto }}
-        </li>
-      </ul> -->
-    </div>
-    <button @click="exibeCarrinho = !exibeCarrinho">exibe carrinho</button>
     <div id="d1">
       <p id="p1"><a href="">IFBooks</a></p>
       <p id="p2">
@@ -97,12 +89,42 @@ const carrinho = [];
       </ul>
     </nav>
     <nav id="icons">
-      <span id="sp1" class="fa-solid fa-cart-shopping"></span>
+      <span id="sp1" class="fa-solid fa-cart-shopping" @click="exibeCarrinho = !exibeCarrinho"></span>
       <span id="sp2" class="fa-solid fa-heart"></span>
       <span id="sp3" class="fa-solid fa-user"></span>
     </nav>
   </header>
-  <main>
+  <main v-if="exibeCarrinho" id="main2">
+    <h1>Carrinho</h1>
+    <div id="div1">
+      <h2 id="titulo">Título</h2>
+      <h2 id="separador">Quantidade</h2>
+      <h2 id="subtotal">Subtotal</h2>
+    </div>
+    <button id="button1">Voltar para a loja</button>
+
+    <div id="div3">
+      <div id="div2">
+        <input type="text" name="cupom" id="" placeholder="Código do cupom">
+        <button id="button2">Inserir Cupom</button>
+      </div>
+      <div id="div4">
+        <div id="compra">
+          <h2>Total de compras</h2>
+          <ul>
+            <li class="li1">Produtos:</li>
+            <li class="li1">Frete:</li>
+            <li id="li2">Total:</li>
+          </ul>
+          <div id="btn">
+            <button id="btn">Ir para o pagamento</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+  <main v-else>
     <section id="s1">
       <div>
         <button id="b1">Autor de abril</button>
@@ -140,7 +162,7 @@ const carrinho = [];
           <p id="p5">R$ {{ produto.preco.toFixed(2) }}
             <span id="sp4" class="fa-solid fa-heart"></span>
           </p>
-          <button>
+          <button @click="comprar(produto)">
             <span class="fa-solid fa-cart-shopping"></span>
             <p>Comprar</p>
           </button>
@@ -265,6 +287,7 @@ nav ul li a {
 #icons span {
   color: #27AE60;
   margin: 0 1vw 0 0;
+  cursor: pointer;
 }
 
 #sp1,
@@ -478,5 +501,113 @@ footer ul li span {
 #sp5 {
   font-size: 1rem;
   color: #231F2D;
+}
+/*===========
+  Carrinho
+============*/
+#main2 h1 {
+  margin: 5vw 0 5vw 5vw;
+  font-size: 2rem;
+  color: #27AE60;
+  font-weight: 500;
+}
+#div1{
+  display: flex;
+  margin: 0 5vw 3vw 5vw;
+  border-bottom: #27AE60 1px solid;
+  padding: 0 2vw 0 0;
+  justify-content: space-between;
+  
+}
+
+
+
+
+
+
+#button1 {
+  background-color: transparent;
+  border: black 1px solid;
+  border-radius: 3px;
+  color: black;
+  padding: 10px 30px;
+  margin: 0 0 0 5vw;
+  cursor: pointer;   
+}
+
+#div2 input {
+  background-color: transparent;
+  border: black 1px solid;
+  border-radius: 3px;
+  color: black;
+  padding: 10px 30px;
+  margin: 3vw 1vw 0 5vw;
+} 
+
+#button2 {
+  background-color: #27AE60;
+  border-radius: 3px;
+  color: #ffffff;
+  padding: 10px 30px;
+  cursor: pointer;  
+  border: #27AE60 1px solid;
+}
+
+#div3 {
+  display: flex;
+}
+
+#div4 {
+  margin: 0 0 0 45%;
+  border: 1px solid black;
+  width: 350px;
+}
+
+#div4 h2 {
+  margin: 1vw 0 0 0;
+}
+
+#compra{
+  margin: 0 0 0 1vw;
+}
+
+#div4 ul {
+  padding-left: 0;
+}
+
+#div4 ul li {
+  list-style: none;
+}
+
+.li1 {
+  border-bottom: black 1px solid;
+  padding: 5px 0 5px 0;
+}
+
+#li2 {
+  padding: 5px 0 0 0;
+}
+
+#div4 button {
+  margin: 3vw 0 0 0;
+  background-color: #27AE60;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  cursor: pointer;  
+  border: #27AE60 1px solid;
+}
+
+#btn {
+  text-align: center;
+  margin: 0 1vw 1vw 0;
+}
+
+#div4 {
+  margin: 0 0 2vw 45vw;
+}
+
+#compra {
+  padding: 0 2vw 0 0;
 }
 </style>
